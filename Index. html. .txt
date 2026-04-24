@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Pro Cleaning Service</title>
+<meta name="description" content="Professional cleaning services in your city. Fast, reliable and high quality cleaning for homes and offices.">
+
+<style>
+body {
+    font-family: Arial;
+    margin: 0;
+    background: #f5f5f5;
+    text-align: center;
+}
+
+header {
+    background: #2c7be5;
+    color: white;
+    padding: 15px;
+}
+
+.container {
+    padding: 40px;
+}
+
+button {
+    margin: 5px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.cta {
+    background: #2c7be5;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+}
+
+.fade {
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h2>Pro Cleaning Service</h2>
+<button data-lang="de">DE</button>
+<button data-lang="en">EN</button>
+<button data-lang="sk">SK</button>
+</header>
+
+<div class="container">
+<h1 id="title"></h1>
+<p id="text"></p>
+<button class="cta" id="btn"></button>
+</div>
+
+<script>
+const content = {
+  de: {
+    title: "Professionelle Reinigung",
+    text: "Wir bieten hochwertige Reinigungsdienste in Ihrer Stadt.",
+    btn: "Kontaktieren Sie uns"
+  },
+  en: {
+    title: "Professional Cleaning",
+    text: "We provide high quality cleaning services in your city.",
+    btn: "Contact Us"
+  },
+  sk: {
+    title: "Profesionálne upratovanie",
+    text: "Ponúkame kvalitné upratovacie služby vo vašom meste.",
+    btn: "Kontaktujte nás"
+  }
+};
+
+function setLang(lang) {
+  const selected = content[lang] || content.en;
+
+  ["title", "text", "btn"].forEach(id => {
+    document.getElementById(id).classList.add("fade");
+  });
+
+  setTimeout(() => {
+    document.getElementById("title").innerText = selected.title;
+    document.getElementById("text").innerText = selected.text;
+    document.getElementById("btn").innerText = selected.btn;
+
+    ["title", "text", "btn"].forEach(id => {
+      document.getElementById(id).classList.remove("fade");
+    });
+  }, 150);
+}
+
+// detect browser language
+function getDefaultLang() {
+  const lang = navigator.language.slice(0, 2);
+  return content[lang] ? lang : "de";
+}
+
+// button events
+document.querySelectorAll("button[data-lang]").forEach(btn => {
+  btn.addEventListener("click", () => setLang(btn.dataset.lang));
+});
+
+// initialize
+setLang(getDefaultLang());
+</script>
+
+</body>
+</html>
